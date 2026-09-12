@@ -82,8 +82,12 @@
     .nav-links { padding-left: 20px; padding-right: 20px; }
   }
 
-  .hero { position: relative; overflow: hidden; background: var(--band-bg); color: var(--ink); padding: 96px 32px 88px; }
-  .hero-pattern { position: absolute; inset: 0; opacity: 0.6; pointer-events: none; }
+  .hero {
+    position: relative; overflow: hidden;
+    background-image: linear-gradient(rgba(240,224,220,0.88), rgba(240,224,220,0.93)), url("hero-photo.jpg");
+    background-size: cover; background-position: center 30%;
+    color: var(--ink); padding: 96px 32px 88px;
+  }
   .hero-inner {
     position: relative; max-width: 1120px; margin: 0 auto; display: flex; flex-direction: column;
     align-items: flex-start; gap: 24px;
@@ -198,12 +202,6 @@
 </script>
 
 <section class="hero">
-  <svg class="hero-pattern" viewBox="0 0 1120 420" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-    <line x1="700" y1="-40" x2="1160" y2="420" stroke="rgba(75,50,52,0.05)" stroke-width="80"/>
-    <line x1="880" y1="-40" x2="1340" y2="420" stroke="rgba(75,50,52,0.04)" stroke-width="60"/>
-    <circle cx="1020" cy="90" r="120" fill="none" stroke="rgba(75,50,52,0.07)" stroke-width="1"/>
-    <circle cx="1020" cy="90" r="180" fill="none" stroke="rgba(75,50,52,0.04)" stroke-width="1"/>
-  </svg>
   <div class="hero-inner">
     <div class="eyebrow">Gestión y eficiencia organizacional</div>
     <h1>Ordená la gestión de tu PyME y enfocate en crecer</h1>
