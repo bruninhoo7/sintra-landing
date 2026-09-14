@@ -201,6 +201,12 @@
     .duality-row { flex-direction: column; gap: 14px; }
   }
 
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { transition: none; opacity: 1; transform: none; }
+  }
+
   .quote-block { border-left: 3px solid var(--accent); padding-left: 22px; margin-top: 10px; max-width: 640px; }
   .quote-block p { margin: 0; font-size: 19px; font-style: italic; color: var(--ink); line-height: 1.5; }
 
@@ -274,7 +280,6 @@
         <a href="#quienes-somos">Quiénes somos</a>
         <a href="#mejorar">Qué podemos mejorar</a>
         <a href="#metodo">Cómo trabajamos</a>
-        <a href="#contacto">Contacto</a>
       </nav>
       <a href="#contacto" class="nav-cta">Conversemos</a>
       <button type="button" class="menu-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
@@ -300,6 +305,26 @@
     links.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', function () { setOpen(false); });
     });
+
+    function initReveal() {
+      var revealEls = document.querySelectorAll('.reveal');
+      if (revealEls.length && 'IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.3, rootMargin: '0px 0px -10% 0px' });
+        revealEls.forEach(function (el) { io.observe(el); });
+      }
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initReveal);
+    } else {
+      initReveal();
+    }
   })();
 </script>
 
@@ -319,13 +344,13 @@
     <h2>No venimos a decirte cómo debería funcionar tu empresa.</h2>
     <p>Venimos a entender cómo funciona hoy, qué se está trabando y qué necesita cambiar para que funcione mejor.</p>
   </div>
-  <div class="section-head">
+  <div class="section-head reveal">
     <h2>Miramos la empresa desde dos lugares al mismo tiempo.</h2>
   </div>
   <div class="duality-row">
-    <div class="duality-item"><p>Cómo está organizado el trabajo.</p></div>
-    <div class="duality-and">y</div>
-    <div class="duality-item"><p>Qué necesitan las personas para hacerlo posible.</p></div>
+    <div class="duality-item reveal" style="transition-delay:0.1s"><p>Cómo está organizado el trabajo.</p></div>
+    <div class="duality-and reveal" style="transition-delay:0.25s">y</div>
+    <div class="duality-item reveal" style="transition-delay:0.4s"><p>Qué necesitan las personas para hacerlo posible.</p></div>
   </div>
 </section>
 
