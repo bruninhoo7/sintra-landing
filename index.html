@@ -358,10 +358,51 @@
         revealEls.forEach(function (el) { io.observe(el); });
       }
     }
+    function initContactForm() {
+      var contactForm = document.getElementById('contactForm');
+      if (!contactForm) return;
+      var formStatus = document.getElementById('formStatus');
+      var submitBtn = contactForm.querySelector('.form-submit');
+      contactForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var originalLabel = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Enviando...';
+        formStatus.style.display = 'none';
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(Object.fromEntries(new FormData(contactForm)))
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (json) {
+            if (json.success) {
+              formStatus.textContent = '¡Gracias! Te vamos a contactar a la brevedad.';
+              formStatus.style.color = 'var(--accent)';
+              contactForm.reset();
+            } else {
+              formStatus.textContent = 'Hubo un problema al enviar. Probá de nuevo o escribinos por WhatsApp.';
+              formStatus.style.color = '#b23b3b';
+            }
+            formStatus.style.display = 'block';
+          })
+          .catch(function () {
+            formStatus.textContent = 'Hubo un problema al enviar. Probá de nuevo o escribinos por WhatsApp.';
+            formStatus.style.color = '#b23b3b';
+            formStatus.style.display = 'block';
+          })
+          .finally(function () {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalLabel;
+          });
+      });
+    }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initReveal);
+      document.addEventListener('DOMContentLoaded', initContactForm);
     } else {
       initReveal();
+      initContactForm();
     }
   })();
 </script>
@@ -531,14 +572,18 @@
       </div>
     </div>
 
-    <div class="form-card">
-      <div class="form-row"><label>Nombre</label><input type="text" placeholder="Tu nombre"></div>
-      <div class="form-row"><label>Empresa</label><input type="text" placeholder="Nombre de tu empresa"></div>
-      <div class="form-row"><label>Cargo</label><input type="text" placeholder="Tu cargo en la empresa"></div>
-      <div class="form-row"><label>Email o WhatsApp</label><input type="text" placeholder="Cómo te contactamos"></div>
-      <div class="form-row"><label>¿Qué situación te gustaría poder resolver o mejorar?</label><textarea placeholder="Contanos brevemente"></textarea></div>
-      <button type="button" class="form-submit">Conversemos</button>
-    </div>
+    <form class="form-card" id="contactForm">
+      <input type="hidden" name="access_key" value="WEB3FORMS_ACCESS_KEY_AQUI">
+      <input type="hidden" name="subject" value="Nueva consulta desde sintraconsultora.com">
+      <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
+      <div class="form-row"><label>Nombre</label><input type="text" name="Nombre" placeholder="Tu nombre" required></div>
+      <div class="form-row"><label>Empresa</label><input type="text" name="Empresa" placeholder="Nombre de tu empresa"></div>
+      <div class="form-row"><label>Cargo</label><input type="text" name="Cargo" placeholder="Tu cargo en la empresa"></div>
+      <div class="form-row"><label>Email o WhatsApp</label><input type="text" name="Email o WhatsApp" placeholder="Cómo te contactamos" required></div>
+      <div class="form-row"><label>¿Qué situación te gustaría poder resolver o mejorar?</label><textarea name="Situación" placeholder="Contanos brevemente"></textarea></div>
+      <button type="submit" class="form-submit">Conversemos</button>
+      <p id="formStatus" style="display:none;margin:14px 0 0;font-size:14px;"></p>
+    </form>
   </div>
 </section>
 
