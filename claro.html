@@ -132,11 +132,7 @@
     .about-copy h2, .contact-copy h2 { font-size: 25px; }
   }
 
-  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 22px; max-width: 1120px; margin: 0 auto; }
-  .service-card { background: var(--bg); border: 1px solid var(--line); border-radius: 4px; padding: 28px 24px; display: flex; flex-direction: column; gap: 14px; }
   .icon-badge { width: 44px; height: 44px; border-radius: 3px; background: var(--accent-tint); color: var(--accent); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .service-card h3 { font-size: 17px; font-weight: 700; }
-  .service-card p { margin: 0; font-size: 14.5px; color: var(--muted); }
 
   .about-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; max-width: 1120px; margin: 0 auto; align-items: start; }
   .about-copy h2 { font-size: 32px; font-weight: 700; margin-bottom: 18px; }
@@ -154,37 +150,11 @@
     .traits-grid .pillar:nth-child(2) { border-top: 1px solid var(--line); padding-top: 22px; }
   }
 
-  .duality-row { display: flex; align-items: center; justify-content: center; gap: 28px; max-width: 720px; margin: 0 auto; }
-  .duality-item { flex: 1; text-align: center; }
-  .duality-item p { margin: 0; font-size: 19px; font-weight: 600; color: var(--ink); }
-  .duality-and { font-family: 'Quicksand', sans-serif; font-size: 15px; font-weight: 700; color: var(--accent); }
-  @media (max-width: 640px) {
-    .duality-row { flex-direction: column; gap: 14px; }
-  }
-
   .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
   .reveal.is-visible { opacity: 1; transform: translateY(0); }
   @media (prefers-reduced-motion: reduce) {
     .reveal { transition: none; opacity: 1; transform: none; }
   }
-
-  .duality-section { padding-top: 64px; padding-bottom: 64px; }
-  .duality-panel {
-    max-width: 860px; margin: 40px auto 0; background: var(--accent-tint);
-    border-radius: 20px; padding: 44px 48px;
-  }
-  .duality-panel-label {
-    text-align: center; font-family: 'Quicksand', sans-serif; font-weight: 700;
-    font-size: 15px; color: var(--accent); margin-bottom: 28px;
-  }
-  @media (max-width: 640px) {
-    .duality-panel { padding: 32px 22px; border-radius: 16px; }
-  }
-
-  .services-grid > .reveal:nth-child(1) { transition-delay: 0s; }
-  .services-grid > .reveal:nth-child(2) { transition-delay: 0.1s; }
-  .services-grid > .reveal:nth-child(3) { transition-delay: 0.2s; }
-  .services-grid > .reveal:nth-child(4) { transition-delay: 0.3s; }
 
   .founders-grid > .reveal:nth-child(1) { transition-delay: 0s; }
   .founders-grid > .reveal:nth-child(2) { transition-delay: 0.15s; }
@@ -215,6 +185,8 @@
   .founder-name { font-size: 17px; font-weight: 700; margin-bottom: 2px; }
   .founder-role { font-size: 13.5px; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
   .founder-creds { font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+  .founder-focus { font-size: 13.5px; color: var(--muted); line-height: 1.5; margin-top: 8px; }
+  .founder-social { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
   @media (max-width: 640px) {
     .founders-grid { grid-template-columns: repeat(1, minmax(0, 1fr)); }
   }
@@ -226,6 +198,9 @@
   @media (max-width: 700px) {
     .mejora-grid { grid-template-columns: repeat(1, minmax(0, 1fr)); }
   }
+  .service-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; }
+  .service-list li { position: relative; padding-left: 20px; font-size: 14.5px; color: var(--muted); }
+  .service-list li::before { content: ""; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
   .callout { background: var(--bg-alt); border-radius: 4px; padding: 28px 32px; margin-top: 48px; }
   .callout h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
   .callout p { margin: 0; color: var(--muted); font-size: 15px; }
@@ -274,11 +249,11 @@
     <div class="nav-right">
       <nav class="nav-links" id="navLinks">
         <a href="#">Inicio</a>
-        <a href="#quienes-somos">Quiénes somos</a>
-        <a href="#mejorar">Qué podemos mejorar</a>
+        <a href="#nosotras">Nosotras</a>
+        <a href="#servicios">Servicios</a>
         <a href="#metodo">Cómo trabajamos</a>
       </nav>
-      <a href="#contacto" class="nav-cta">Conversemos</a>
+      <a href="#contacto" class="nav-cta">Hablemos</a>
       <button type="button" class="menu-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="navLinks">
         <span class="bar"></span><span class="bar"></span><span class="bar"></span>
       </button>
@@ -368,61 +343,18 @@
 
 <section class="hero">
   <div class="hero-inner">
-    <div class="eyebrow">Gestión y eficiencia organizacional</div>
-    <h1>Cuando la empresa crece, su forma de trabajar también tiene que hacerlo.</h1>
-    <p class="lead">Colaboramos con las empresas a trabajar con más claridad y autonomía, sin perder aquello que las hizo buenas: el compromiso de su gente y su forma propia de hacer las cosas.</p>
+    <div class="eyebrow">Eficiencia organizacional</div>
+    <h1>Impulsando organizaciones, transformando líderes.</h1>
+    <p class="lead" style="font-style:italic;">"Colaboramos con las empresas para que puedan crecer con más claridad y más autonomía sin perder aquello que las hizo buenas: el compromiso de su gente y la forma propia de hacer las cosas."</p>
     <div class="hero-ctas">
-      <a href="#contacto" class="btn-primary">Conversemos</a>
+      <a href="#contacto" class="btn-primary">Hablemos</a>
     </div>
   </div>
 </section>
 
-<section class="section duality-section">
-  <div class="section-head reveal">
-    <h2>Entendemos primero cómo funciona tu empresa.</h2>
-    <p>Venimos a entender cómo funciona hoy, qué se está trabando y qué necesita cambiar para que funcione mejor.</p>
-  </div>
-  <div class="duality-panel">
-    <div class="duality-panel-label reveal">Miramos la empresa desde dos lugares al mismo tiempo</div>
-    <div class="duality-row">
-      <div class="duality-item reveal" style="transition-delay:0.15s"><p>Cómo está organizado el trabajo.</p></div>
-      <div class="duality-and reveal" style="transition-delay:0.3s">y</div>
-      <div class="duality-item reveal" style="transition-delay:0.45s"><p>Qué necesitan las personas para hacerlo posible.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="ayuda">
+<section class="section section-alt" id="nosotras">
   <div class="section-head">
-    <h2>¿En qué podemos ayudarte?</h2>
-  </div>
-  <div class="services-grid">
-    <div class="service-card reveal">
-      <div class="icon-badge"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1"/><path d="M8.5 12.5l2 2 4-4.5"/></svg></div>
-      <h3>Más claridad</h3>
-      <p>Cuando no está claro quién decide, quién es responsable o dónde termina el rol de cada persona. Ayudamos a ordenar decisiones, responsabilidades y formas de delegar.</p>
-    </div>
-    <div class="service-card reveal">
-      <div class="icon-badge"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h9"/><circle cx="16" cy="7" r="2"/><path d="M20 12h-9"/><circle cx="8" cy="12" r="2"/><path d="M4 17h9"/><circle cx="16" cy="17" r="2"/></svg></div>
-      <h3>Más fluidez</h3>
-      <p>Cuando el trabajo se frena, se repite o depende demasiado de una persona. Ayudamos a revisar y ordenar procesos para que el trabajo avance mejor.</p>
-    </div>
-    <div class="service-card reveal">
-      <div class="icon-badge"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10"/><path d="M10 20V4"/><path d="M16 20v-7"/><path d="M3 20h18"/></svg></div>
-      <h3>Mejor coordinación</h3>
-      <p>Cuando cada área hace su parte, pero la empresa pierde tiempo entre una y otra. Ayudamos a ordenar prioridades, acuerdos, coordinación y seguimiento.</p>
-    </div>
-    <div class="service-card reveal">
-      <div class="icon-badge"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3.5 20c0-3.3 2.5-6 5.5-6s5.5 2.7 5.5 6"/><circle cx="17" cy="7" r="2.3"/><path d="M15.5 14.2c2.4.4 4.5 2.7 4.9 5.8"/></svg></div>
-      <h3>Más autonomía</h3>
-      <p>Cuando hay personas capaces, pero necesitan más herramientas para conducir, decidir y hacerse cargo. Acompañamos a quienes tienen personas a cargo para que puedan gestionar mejor.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section section-alt" id="quienes-somos">
-  <div class="section-head">
-    <h2>Quiénes somos</h2>
+    <h2>Nosotras</h2>
   </div>
   <div class="founders-grid">
     <div class="founder-card reveal">
@@ -430,7 +362,12 @@
       <div>
         <div class="founder-name">Mg. Paula Sanmarti</div>
         <div class="founder-role">Socia Directora</div>
-        <div class="founder-creds">Magíster en Derechos Humanos. Licenciada en Relaciones Internacionales · Profesora · Coach.<br>Especialista en Gestión del Cambio y Desarrollo de Equipos.</div>
+        <div class="founder-creds">Magíster en Derechos Humanos (UNR) · Licenciada en Relaciones Internacionales (UNR) · Profesora Universitaria (UCA) · Diplomada en Gestión Pública (UCCOR) · Coach.<br>Especialista en Gestión del Cambio y Desarrollo de Equipos.</div>
+        <div class="founder-focus">Foco de trabajo: liderazgo, comunicación, desarrollo de equipos, cambio organizacional y coaching ejecutivo y de equipos.</div>
+        <div class="founder-social">
+          <a href="mailto:paula@sintraconsultora.com" class="social-pill">Email ↗</a>
+          <a href="https://www.linkedin.com/in/paula-sanmarti-8b159037/" target="_blank" rel="noopener" class="social-pill">LinkedIn ↗</a>
+        </div>
       </div>
     </div>
     <div class="founder-card reveal">
@@ -438,17 +375,15 @@
       <div>
         <div class="founder-name">Valeria Martinez</div>
         <div class="founder-role">Socia Directora</div>
-        <div class="founder-creds">Lic. en Biotecnología · Coach ontológico.<br>Especialista en Calidad y Estandarización de Procesos.</div>
+        <div class="founder-creds">Licenciada en Biotecnología · Coach ontológico.<br>Especialista en Calidad y Estandarización de Procesos.</div>
+        <div class="founder-focus">Foco de trabajo: procesos, calidad, estandarización, mejora de la gestión y acompañamiento de la implementación.</div>
+        <div class="founder-social">
+          <a href="mailto:valeria@sintraconsultora.com" class="social-pill">Email ↗</a>
+        </div>
       </div>
     </div>
   </div>
   <div class="about-copy">
-      <h2 style="font-size:24px;margin-bottom:0;">Propósito</h2>
-      <div class="quote-block">
-        <p>"Colaboramos con las empresas para que puedan crecer con más claridad y más autonomía sin perder aquello que las hizo buenas: el compromiso de su gente y la forma propia de hacer las cosas."</p>
-      </div>
-  </div>
-  <div class="about-copy" style="margin-top:48px;">
       <h2 style="font-size:24px;margin-bottom:22px;">Nuestra forma de estar con las empresas</h2>
       <div class="traits-grid">
         <div class="pillar reveal"><div class="pillar-num">*</div><div><h3>Cercana</h3><p>Nos involucramos en la realidad cotidiana.</p></div></div>
@@ -462,46 +397,49 @@
 
 </section>
 
-<section class="section" id="mejorar">
+<section class="section" id="servicios">
   <div class="section-head">
     <h2>¿Qué está haciendo más difícil que tu empresa funcione como necesita?</h2>
   </div>
+  <div class="mejora-item reveal" style="max-width:720px;margin:0 auto 40px;">
+    <h3>Liderazgo, comunicación y equipos</h3>
+    <ul class="service-list">
+      <li>Desarrollo de liderazgo para mandos medios y líderes.</li>
+      <li>Delegación, feedback y gestión de compromisos.</li>
+      <li>Comunicación y conversaciones difíciles.</li>
+      <li>Facilitación de jornadas de equipos y espacios de alineación.</li>
+      <li>Coaching ejecutivo y coaching de equipos.</li>
+    </ul>
+  </div>
   <div class="mejora-grid">
     <div class="mejora-item reveal">
+      <h3>Capacitación y desarrollo</h3>
+      <p>Diseñamos y facilitamos espacios de aprendizaje prácticos, pensados para aplicarse en el día a día.</p>
+    </div>
+    <div class="mejora-item reveal">
       <h3>Decisiones y roles</h3>
-      <p>Cuando demasiadas decisiones terminan en la dirección, los límites entre roles no están claros o hay responsabilidades que se superponen.</p>
-      <p>Ayudamos a ordenar quién decide, quién responde por qué y qué necesita cada nivel para trabajar con mayor autonomía.</p>
+      <p>Ayudamos a ordenar quién decide, quién responde por qué, qué se delega y qué necesita cada nivel para trabajar con mayor autonomía.</p>
     </div>
     <div class="mejora-item reveal">
-      <h3>Procesos</h3>
-      <p>Cuando el trabajo se frena, se repite, depende de una persona clave o cada uno termina resolviendo de una manera diferente.</p>
-      <p>Ayudamos a entender dónde se pierde fluidez y a construir formas de trabajo más claras y sostenibles.</p>
+      <h3>Procesos y formas de trabajo</h3>
+      <p>Ayudamos a entender dónde se pierde fluidez y a construir formas de trabajo más claras, simples y sostenibles.</p>
     </div>
     <div class="mejora-item reveal">
-      <h3>Coordinación y prioridades</h3>
-      <p>Cuando cada área trabaja mucho, pero la empresa pierde tiempo por falta de coordinación, acuerdos o prioridades compartidas.</p>
-      <p>Ayudamos a ordenar aquello que necesita pasar entre personas y áreas para que el trabajo avance.</p>
+      <h3>Coordinación, prioridades y seguimiento</h3>
+      <p>Ayudamos a ordenar lo importante, mejorar la coordinación y construir rutinas que permitan hacer seguimiento sin llenar la agenda de reuniones.</p>
     </div>
-    <div class="mejora-item reveal">
-      <h3>Liderazgo y equipos</h3>
-      <p>Cuando quienes conocen muy bien su trabajo tienen que empezar a conducir personas y necesitan nuevas herramientas para decidir, delegar, conversar y hacer seguimiento.</p>
-      <p>Acompañamos esa transición para que los mandos medios puedan asumir su rol con mayor claridad y autonomía.</p>
-    </div>
-  </div>
-  <div class="callout reveal">
-    <h3>Un mismo problema puede tener más de una causa.</h3>
-    <p>Por eso no ofrecemos soluciones enlatadas. Un problema que parece de comunicación puede esconder un rol mal definido. Una dificultad de liderazgo puede tener detrás una decisión que nadie puede tomar. Un proceso que no se cumple puede necesitar, además de un cambio en la forma de trabajar, personas preparadas para sostenerlo.</p>
   </div>
 </section>
 
 <section class="section section-alt" id="metodo">
   <div class="section-head">
     <h2>Primero entendemos. Después intervenimos.</h2>
+    <p>Empezamos por comprender qué está pasando.</p>
   </div>
   <div class="method-list" style="max-width:720px;margin:0 auto;">
-    <div class="method-step reveal"><div class="step-num">01</div><div><h3>Escuchamos</h3><p>Nos metemos en la realidad de la empresa. Conversamos con las personas involucradas. Observamos cómo se trabaja hoy y qué está trabando la operación.</p></div></div>
+    <div class="method-step reveal"><div class="step-num">01</div><div><h3>Escuchamos</h3><p>Nos metemos en la realidad de la empresa. Conversamos con las personas involucradas. Observamos cómo se trabaja hoy, qué está trabando la operación y qué tensiones aparecen en la gestión.</p></div></div>
     <div class="method-step reveal"><div class="step-num">02</div><div><h3>Ordenamos</h3><p>Distinguimos síntomas, causas y prioridades. No todo lo que molesta necesita ser intervenido al mismo tiempo.</p></div></div>
-    <div class="method-step reveal"><div class="step-num">03</div><div><h3>Construimos</h3><p>Diseñamos con la empresa una solución concreta, aplicable y alineada con su realidad.</p></div></div>
+    <div class="method-step reveal"><div class="step-num">03</div><div><h3>Construimos</h3><p>Diseñamos con la empresa una solución concreta, aplicable y alineada con su realidad. Puede incluir rediseño de procesos, ordenamiento de roles, desarrollo de liderazgo, facilitación, coaching o espacios de aprendizaje.</p></div></div>
     <div class="method-step reveal"><div class="step-num">04</div><div><h3>Acompañamos</h3><p>Ayudamos a que lo acordado se lleve al trabajo cotidiano y pueda sostenerse en el tiempo.</p></div></div>
   </div>
 </section>
@@ -509,12 +447,12 @@
 <section class="section" id="contacto">
   <div class="contact-grid">
     <div class="contact-copy">
-      <h2>Hablemos de lo que hoy está trabando tu empresa</h2>
+      <h2>Hablemos.</h2>
       <p class="lead">No hace falta que tengas el problema perfectamente definido. Podemos empezar por una conversación.</p>
 
       <div class="contact-item">
         <div class="icon-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M4 7l8 6 8-6"/></svg></div>
-        <div><strong>Email</strong><span>[hola@sintra.com.ar]</span></div>
+        <div><strong>Email</strong><span>hola@sintraconsultora.com</span></div>
       </div>
       <div class="contact-item">
         <div class="icon-badge"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 4h3l1.5 4-2 1.5a12 12 0 0 0 5.5 5.5l1.5-2 4 1.5v3c0 1-.9 1.8-1.9 1.7C11.5 18.7 5.3 12.5 4.8 5.9 4.7 4.9 5.5 4 6.5 4z"/></svg></div>
@@ -540,7 +478,7 @@
       <div class="form-row"><label>Cargo</label><input type="text" name="Cargo" placeholder="Tu cargo en la empresa"></div>
       <div class="form-row"><label>Email o WhatsApp</label><input type="text" name="Email o WhatsApp" placeholder="Cómo te contactamos" required></div>
       <div class="form-row"><label>¿Qué situación te gustaría poder resolver o mejorar?</label><textarea name="Situación" placeholder="Contanos brevemente"></textarea></div>
-      <button type="submit" class="form-submit">Conversemos</button>
+      <button type="submit" class="form-submit">Hablemos</button>
       <p id="formStatus" style="display:none;margin:14px 0 0;font-size:14px;"></p>
     </form>
   </div>
@@ -550,8 +488,8 @@
   <div class="footer-inner">
     <div class="footer-copy">© 2026 Sintra. Todos los derechos reservados.</div>
     <div class="footer-links">
-      <a href="#quienes-somos">Quiénes somos</a>
-      <a href="#mejorar">Qué podemos mejorar</a>
+      <a href="#nosotras">Nosotras</a>
+      <a href="#servicios">Servicios</a>
       <a href="#metodo">Cómo trabajamos</a>
       <a href="#contacto">Contacto</a>
     </div>
