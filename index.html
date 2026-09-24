@@ -309,6 +309,7 @@
 
   .form-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: var(--radius-md); padding: 32px; box-shadow: var(--shadow-sm); }
   .form-row { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+  .h-captcha { margin-bottom: 18px; }
   .form-row label { font-size: 13.5px; font-weight: 600; }
   .form-row input, .form-row textarea {
     font-family: inherit; font-size: 14.5px; padding: 11px 12px;
@@ -398,6 +399,13 @@
       var submitBtn = contactForm.querySelector('.form-submit');
       contactForm.addEventListener('submit', function (e) {
         e.preventDefault();
+        var captchaField = contactForm.querySelector('textarea[name="h-captcha-response"]');
+        if (!captchaField || !captchaField.value) {
+          formStatus.textContent = 'Marcá el casillero "No soy un robot" antes de enviar.';
+          formStatus.style.color = '#b23b3b';
+          formStatus.style.display = 'block';
+          return;
+        }
         var originalLabel = submitBtn.textContent;
         submitBtn.disabled = true;
         submitBtn.textContent = 'Enviando...';
@@ -427,6 +435,7 @@
           .finally(function () {
             submitBtn.disabled = false;
             submitBtn.textContent = originalLabel;
+            if (window.hcaptcha) { window.hcaptcha.reset(); }
           });
       });
     }
@@ -577,9 +586,11 @@
       <div class="form-row"><label>Cargo</label><input type="text" name="Cargo" placeholder="Tu cargo en la empresa"></div>
       <div class="form-row"><label>Email o WhatsApp</label><input type="text" name="Email o WhatsApp" placeholder="Cómo te contactamos" required></div>
       <div class="form-row"><label>¿Qué situación te gustaría poder resolver o mejorar?</label><textarea name="Situación" placeholder="Contanos brevemente"></textarea></div>
+      <div class="h-captcha" data-captcha="true"></div>
       <button type="submit" class="form-submit">Hablemos</button>
       <p id="formStatus" style="display:none;margin:14px 0 0;font-size:14px;"></p>
     </form>
+    <script src="https://web3forms.com/client/script.js" async defer></script>
   </div>
 </section>
 
