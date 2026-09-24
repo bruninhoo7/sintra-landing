@@ -190,8 +190,19 @@
   .quote-block p { margin: 0; font-size: 19px; font-style: italic; color: var(--ink); line-height: 1.5; }
 
   .founders-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-bottom: 56px; }
-  .founder-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 4px; padding: 28px; display: flex; gap: 20px; align-items: flex-start; }
-  .founder-photo { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .founder-card { background: var(--card-bg); border: 1px solid var(--line); border-radius: 4px; padding: 28px; display: flex; gap: 20px; align-items: flex-start; cursor: pointer; transition: all 0.4s cubic-bezier(0.16,1,0.3,1); }
+  .founder-photo { width: 88px; height: 88px; border-radius: 50%; object-fit: cover; flex-shrink: 0; transition: width 0.4s cubic-bezier(0.16,1,0.3,1), height 0.4s cubic-bezier(0.16,1,0.3,1); }
+  .founder-card.is-expanded { flex-direction: column; align-items: center; text-align: center; }
+  .founder-card.is-expanded .founder-photo { width: 220px; height: 220px; }
+  .founder-card.is-expanded .founder-social { justify-content: center; }
+  @media (hover: hover) {
+    .founder-card:hover { flex-direction: column; align-items: center; text-align: center; }
+    .founder-card:hover .founder-photo { width: 220px; height: 220px; }
+    .founder-card:hover .founder-social { justify-content: center; }
+  }
+  @media (max-width: 480px) {
+    .founder-card.is-expanded .founder-photo { width: 160px; height: 160px; }
+  }
   .founder-name { font-size: 17px; font-weight: 700; margin-bottom: 2px; }
   .founder-role { font-size: 13.5px; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
   .founder-creds { font-size: 13.5px; color: var(--muted); line-height: 1.5; }
@@ -343,12 +354,25 @@
           });
       });
     }
+    function initFounderZoom() {
+      var cards = document.querySelectorAll('.founder-card');
+      cards.forEach(function (card) {
+        card.addEventListener('click', function (e) {
+          if (e.target.closest('a')) return;
+          var wasExpanded = card.classList.contains('is-expanded');
+          cards.forEach(function (c) { c.classList.remove('is-expanded'); });
+          if (!wasExpanded) card.classList.add('is-expanded');
+        });
+      });
+    }
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', initReveal);
       document.addEventListener('DOMContentLoaded', initContactForm);
+      document.addEventListener('DOMContentLoaded', initFounderZoom);
     } else {
       initReveal();
       initContactForm();
+      initFounderZoom();
     }
   })();
 </script>
