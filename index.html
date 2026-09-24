@@ -397,15 +397,8 @@
       if (!contactForm) return;
       var formStatus = document.getElementById('formStatus');
       var submitBtn = contactForm.querySelector('.form-submit');
-      contactForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var captchaField = contactForm.querySelector('textarea[name="h-captcha-response"]');
-        if (!captchaField || !captchaField.value) {
-          formStatus.textContent = 'Marcá el casillero "No soy un robot" antes de enviar.';
-          formStatus.style.color = '#b23b3b';
-          formStatus.style.display = 'block';
-          return;
-        }
+
+      function submitToWeb3Forms() {
         var originalLabel = submitBtn.textContent;
         submitBtn.disabled = true;
         submitBtn.textContent = 'Enviando...';
@@ -437,6 +430,21 @@
             submitBtn.textContent = originalLabel;
             if (window.hcaptcha) { window.hcaptcha.reset(); }
           });
+      }
+
+      window.sintraOnCaptchaVerified = function () {
+        submitToWeb3Forms();
+      };
+
+      contactForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        if (window.hcaptcha && window.hcaptcha.execute) {
+          window.hcaptcha.execute();
+        } else {
+          formStatus.textContent = 'La verificación todavía está cargando, esperá un segundo y probá de nuevo.';
+          formStatus.style.color = '#b23b3b';
+          formStatus.style.display = 'block';
+        }
       });
     }
     if (document.readyState === 'loading') {
@@ -586,7 +594,7 @@
       <div class="form-row"><label>Cargo</label><input type="text" name="Cargo" placeholder="Tu cargo en la empresa"></div>
       <div class="form-row"><label>Email o WhatsApp</label><input type="text" name="Email o WhatsApp" placeholder="Cómo te contactamos" required></div>
       <div class="form-row"><label>¿Qué situación te gustaría poder resolver o mejorar?</label><textarea name="Situación" placeholder="Contanos brevemente"></textarea></div>
-      <div class="h-captcha" data-captcha="true"></div>
+      <div class="h-captcha" data-captcha="true" data-size="invisible" data-callback="sintraOnCaptchaVerified"></div>
       <button type="submit" class="form-submit">Hablemos</button>
       <p id="formStatus" style="display:none;margin:14px 0 0;font-size:14px;"></p>
     </form>
